@@ -146,12 +146,13 @@ const SUMMARY_SLIDE_BG = '0x1A0A33';
 
 function esc(text) {
   // Escape for ffmpeg drawtext - must handle : ' \ % and newlines
+  // In JS template literal → spawned as args, single level of escaping needed
   return text
-    .replace(/\\/g, '\\\\\\\\')
-    .replace(/'/g, "'\\\\\\''")
-    .replace(/:/g, '\\\\:')
+    .replace(/\\/g, '\\\\')
+    .replace(/'/g, "'\\'")
+    .replace(/:/g, '\\:')
     .replace(/%/g, '%%')
-    .replace(/\n/g, '\\n');
+    .replace(/\n/g, ' ');
 }
 
 function fmtTime(s) {
