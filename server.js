@@ -346,9 +346,7 @@ async function handleGenerate(req) {
   return {
     video_url: `${baseUrl}/files/${fileId}.mp4`,
     subtitle_url: `${baseUrl}/files/${fileId}.vtt`,
-    course_title,
-    sections_count: sections.length,
-    duration_seconds: Math.round(totalDuration),
+    supplementary_url: [],
   };
 }
 
