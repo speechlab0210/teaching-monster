@@ -97,9 +97,9 @@ ${scriptText}
     console.log('Video generated successfully');
 
     // Build response with base URL (will be set by tunnel)
-    const baseUrl = req.headers['x-forwarded-host'] 
-      ? `https://${req.headers['x-forwarded-host']}`
-      : `${req.protocol}://${req.get('host')}`;
+    const proto = req.headers['x-forwarded-proto'] || req.protocol;
+    const host = req.headers['x-forwarded-host'] || req.get('host');
+    const baseUrl = `${proto}://${host}`;
 
     const response = {
       video_url: `${baseUrl}/files/${videoFile}`,
