@@ -6,3 +6,5 @@ services:
     envVars:
       - key: PORT
         value: 8765
+      - key: OPENAI_API_KEY
+        sync: false
