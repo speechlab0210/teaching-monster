@@ -145,14 +145,18 @@ const TITLE_SLIDE_BG = '0x0D1B2A';
 const SUMMARY_SLIDE_BG = '0x1A0A33';
 
 function esc(text) {
-  // Escape for ffmpeg drawtext - must handle : ' \ % and newlines
-  // In JS template literal → spawned as args, single level of escaping needed
+  // Sanitize text for ffmpeg drawtext filter
+  // Instead of complex escaping, strip/replace problematic chars
   return text
-    .replace(/\\/g, '\\\\')
-    .replace(/'/g, "'\\'")
-    .replace(/:/g, '\\:')
-    .replace(/%/g, '%%')
-    .replace(/\n/g, ' ');
+    .replace(/\\/g, '/')
+    .replace(/'/g, '\u2019')   // smart quote
+    .replace(/:/g, ' -')       // replace colon to avoid filter breakage
+    .replace(/%/g, ' percent')
+    .replace(/;/g, ',')
+    .replace(/\n/g, ' ')
+    .replace(/\[/g, '(')
+    .replace(/\]/g, ')')
+    .trim();
 }
 
 function fmtTime(s) {
